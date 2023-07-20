@@ -1,61 +1,58 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class MyStack {
+class Stack {
     int *arr;
-    int nextindex;
+    int next_index;
     int capacity;
-
 public:
-    MyStack() {
-        capacity = 4;
-        arr = new int[4];
-        nextindex = 0;
-    }
-
-    MyStack(int cap) {
-        capacity = cap;
+    Stack() {
+        capacity = 10; // Default capacity
         arr = new int[capacity];
-        nextindex = 0;
+        next_index = 0;
     }
-
-    ~MyStack() {
-        delete[] arr;
+    Stack(int capacity) {
+        this->capacity = capacity;
+        arr = new int[capacity];
+        next_index = 0;
     }
-
     int size() {
-        return nextindex;
+        return next_index;
     }
-
     bool is_empty() {
-        return (nextindex == 0);
+        return size() == 0;
     }
-
-    void push(int num) {
-        if (nextindex == capacity) {
-            cout << "Sorry! More elements can't be added to the stack." << endl;
+    void push_element(int ele) {
+        if (next_index == capacity) {
+            cout << "Stack is full." << endl;
             return;
         }
-        arr[nextindex] = num;
-        nextindex++;
+        arr[next_index] = ele;
+        next_index++;
     }
-
-    void pop() {
+    void pop_element() {
         if (is_empty()) {
-            cout << "Stack is empty. No element to pop." << endl;
+            cout << "Stack is empty." << endl;
             return;
         }
-        nextindex--;
+        next_index--;
+    }
+    int top() {
+        if (is_empty()) {
+            cout << "Stack is empty." << endl;
+            return -1;
+        }
+        return arr[next_index - 1];
     }
 };
 
 int main() {
-    MyStack s;
-    s.push(10);
-    s.push(20);
-    s.push(30);
-    s.push(40);
-    cout << s.size() << endl;
-
+    Stack s(5);
+    s.push_element(10);
+    s.push_element(20);
+    s.push_element(30);
+    s.push_element(40);
+    s.push_element(50);
+    cout << "The size of the stack is: " << s.size() << endl;
     return 0;
 }
